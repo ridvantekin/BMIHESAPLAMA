@@ -53,22 +53,33 @@ def sonucMetni():
     global sonuclariYaz
     sonuclariYaz = tkinter.Label()
     sonuclariYaz.config(bg="#fbba0b",
-                        font=("Times New Roman", 16))
-    sonuclariYaz.place(x=125, y=380)
+                        font=("Times New Roman", 16, "bold"))
+    sonuclariYaz.place(x=110, y=380)
 
 def bmiHesapla():
-    kilo = int(kiloGiris.get())
-    boy = int(boyGiris.get())
+    try:
+        kilo = float(kiloGiris.get()) #girilen değer nokta ile girilmeli
+        boy = float(boyGiris.get()) #girilen değer nokta ile girilmeli
+
+    except ValueError: #hata mesajı
+        sonuclariYaz.config(text="Lütfen Geçerli Bir Değer Giriniz")
+
+
 
     vki = kilo / (boy ** 2)
-    formatted_tam_sayi = f"{vki:d}"
-    sonuclariYaz.config(text=f"Vücut Kitle İndeksi: {vki}")
 
 
 
-
-
-
+    if 10 < vki < 18:
+        sonuclariYaz.config(text=f"Vücut Kitle İndeksi: {vki:.2f}\n Sonuç: Zayıf")
+    elif 18 < vki < 25:
+        sonuclariYaz.config(text=f"Vücut Kitle İndeksi: {vki:.2f}\n  Sonuç: Sağlıklı")
+    elif 25 < vki < 30:
+        sonuclariYaz.config(text=f"Vücut Kitle İndeksi: {vki:.2f}\n  Sonuç: Kilolu")
+    elif 30 < vki < 40:
+        sonuclariYaz.config(text=f"Vücut Kitle İndeksi: {vki:.2f}\n  Sonuç: Şişman")
+    elif 40 < vki < 60:
+        sonuclariYaz.config(text=f"Vücut Kitle İndeksi: {vki:.2f}\n  Sonuç: Obezite")
 
 
 
@@ -79,11 +90,12 @@ def hesaplaButonu():
     buton.config(text="HESAPLAMA",
                  width=29,
                  height=4,
+                 fg="black",
+                 font=("calibri", 10, "bold"),
+                 bg="#c8a2c8",
                  command=bmiHesapla)
 
     buton.place(x=125, y=250)
-
-
 
 
 arayuz()
